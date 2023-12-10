@@ -1,29 +1,64 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace restaurant_logic.classes
 {
     public class Customer
     {
-        string _name;
-        string _address;
-        Order _currentOrder;
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public Order CurrentOrder { get; set; }
+        private string _name;
+        private string _address;
+        private Order _currentOrder;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Name cannot be null or empty.");
+                }
+                _name = value;
+            }
+        }
+
+        public string Address
+        {
+            get => _address;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Address cannot be null or empty.");
+                }
+                _address = value;
+            }
+        }
+
+        public Order CurrentOrder
+        {
+            get => _currentOrder;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), "CurrentOrder cannot be null.");
+                }
+                _currentOrder = value;
+            }
+        }
 
         public Customer(string name, string address)
         {
-            throw new NotImplementedException();
+            Name = name;
+            Address = address;
+            _currentOrder = new Order(this);
         }
 
         public void PlaceOrder(List<Dish> dishes)
         {
-            throw new NotImplementedException();
+            _currentOrder.OrderedDishes = dishes;
+            _currentOrder.ConfirmOrder();
         }
     }
 }

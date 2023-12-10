@@ -1,35 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace restaurant_logic.classes
 {
     public class Order
     {
-        Customer _customer;
+        private Customer _customer;
+
         public List<Dish> OrderedDishes { get; set; }
-        public Customer Customer { get; set; }
+        public Customer Customer
+        {
+            get => _customer;
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Customer cannot be null.");
+                }
+                _customer = value;
+            }
+        }
 
         public Order(Customer customer)
         {
-            throw new NotImplementedException();
+            Customer = customer;
+            OrderedDishes = new List<Dish>();
         }
 
         public void AddDishToOrder(Dish dish)
         {
-            throw new NotImplementedException();
+            OrderedDishes.Add(dish);
         }
 
-        public decimal CalculateTotalPrice()
+        public double CalculateTotalPrice()
         {
-            throw new NotImplementedException();
+            double totalPrice = 0;
+            foreach (var dish in OrderedDishes)
+            {
+                totalPrice += (double)dish.Price;
+            }
+            return totalPrice;
         }
 
         public void ConfirmOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order confirmed for customer: " + Customer.Name);
         }
     }
 }

@@ -1,38 +1,53 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace restaurant_logic.classes
 {
     public class Restaurant
     {
-        List<Dish> _menu;
+        private List<Dish> _menu;
         private List<Order> _orders;
-        public List<Dish> Menu { get; private set; }
-        public List<Order> Orders { get; }
+
+        public List<Dish> Menu
+        {
+            get => _menu;
+            private set => _menu = value;
+        }
+
+        public List<Order> Orders
+        {
+            get => _orders;
+            private set => _orders = value;
+        }
 
         public Restaurant()
         {
-            throw new NotImplementedException();
+            _menu = new List<Dish>();
+            _orders = new List<Order>();
+            InitializeMenu();
         }
 
         private void InitializeMenu()
         {
-            throw new NotImplementedException();
+            _menu.Add(new Dish("Pasta Carbonara", 12.99, DishType.Pasta));
+            _menu.Add(new Dish("Chicken Caesar Salad", 9.99, DishType.Salad));
+            _menu.Add(new Dish("Tomato Basil Soup", 6.99, DishType.Soup));
         }
 
-        public void UpdateMenu()
+        public void UpdateMenu(List<Dish> newMenu)
         {
-            throw new NotImplementedException();
+            _menu = newMenu;
         }
-        
+
         public void DisplayMenu()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Menu:");
+            int count = 0;
+            foreach (Dish dish in _menu)
+            {
+                Console.WriteLine($"{++count}. {dish.Name} - ${dish.Price}");
+            }
         }
-
     }
 }
