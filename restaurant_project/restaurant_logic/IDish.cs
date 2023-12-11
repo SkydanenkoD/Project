@@ -11,5 +11,6 @@ namespace restaurant_logic
         string Name { get; set; }
         double Price { get; set; }
         DishType Type { get; set; }
+        string Description { get; set; }
     }
 }

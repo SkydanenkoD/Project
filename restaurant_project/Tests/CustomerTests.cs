@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using restaurant_logic;
 using restaurant_logic.classes;
 using System;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -16,8 +17,8 @@ namespace Tests
 
             var dishes = new List<Dish>
             {
-                new Dish ("Caesar Salad", 9.99, DishType.Salad),
-                new Dish ("Spaghetti Carbonara", 12.50, DishType.Pasta)
+                new Dish ("Caesar Salad", 9.99, DishType.Salad, "Salad"),
+                new Dish ("Spaghetti Carbonara", 12.50, DishType.Pasta, "Yummy")
             };
 
             customer.PlaceOrder(dishes);

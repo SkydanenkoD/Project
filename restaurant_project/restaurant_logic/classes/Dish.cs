@@ -7,6 +7,15 @@ namespace restaurant_logic.classes
         private string _name;
         private double _price;
         private DishType _type;
+        private string _description;
+
+        public Dish(string name, double price, DishType type, string description)
+        {
+            Name = name;
+            Price = price;
+            Type = type;
+            _description = description;
+        }
 
         public string Name
         {
@@ -34,13 +43,16 @@ namespace restaurant_logic.classes
             }
         }
 
-        public DishType Type { get; set; }
-
-        public Dish(string name, double price, DishType type)
+        public DishType Type
         {
-            Name = name;
-            Price = price;
-            Type = type;
+            get => _type;
+            set => _type = value;
+        }
+
+        public string Description
+        {
+            get => _description;
+            set => _description = value;
         }
 
         public int CompareTo(Dish other)

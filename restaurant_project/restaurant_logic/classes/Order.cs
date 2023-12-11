@@ -6,8 +6,19 @@ namespace restaurant_logic.classes
     public class Order
     {
         private Customer _customer;
+        private OrderStatus _status;
+
+        public event EventHandler<OrderStatusEventArgs> OrderStatusChanged;
+
+        public Order(Customer customer)
+        {
+            Customer = customer;
+            OrderedDishes = new List<Dish>();
+            _status = OrderStatus.Pending;
+        }
 
         public List<Dish> OrderedDishes { get; set; }
+
         public Customer Customer
         {
             get => _customer;
@@ -21,10 +32,14 @@ namespace restaurant_logic.classes
             }
         }
 
-        public Order(Customer customer)
+        public OrderStatus Status
         {
-            Customer = customer;
-            OrderedDishes = new List<Dish>();
+            get => _status;
+            private set
+            {
+                _status = value;
+                OnOrderStatusChanged(new OrderStatusEventArgs(_status));
+            }
         }
 
         public void AddDishToOrder(Dish dish)
@@ -45,6 +60,21 @@ namespace restaurant_logic.classes
         public void ConfirmOrder()
         {
             Console.WriteLine("Order confirmed for customer: " + Customer.Name);
+        }
+
+        public List<Dish> FindDishes(Predicate<Dish> predicate)
+        {
+            return OrderedDishes.FindAll(predicate);
+        }
+
+        public void UpdateOrderStatus(OrderStatus newStatus)
+        {
+            Status = newStatus;
+        }
+
+        protected virtual void OnOrderStatusChanged(OrderStatusEventArgs e)
+        {
+            OrderStatusChanged?.Invoke(this, e);
         }
     }
 }

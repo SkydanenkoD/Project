@@ -9,6 +9,13 @@ namespace restaurant_logic.classes
         private string _address;
         private Order _currentOrder;
 
+        public Customer(string name, string address)
+        {
+            Name = name;
+            Address = address;
+            _currentOrder = new Order(this);
+        }
+
         public string Name
         {
             get => _name;
@@ -48,12 +55,7 @@ namespace restaurant_logic.classes
             }
         }
 
-        public Customer(string name, string address)
-        {
-            Name = name;
-            Address = address;
-            _currentOrder = new Order(this);
-        }
+        
 
         public void PlaceOrder(List<Dish> dishes)
         {
